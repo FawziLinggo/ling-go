@@ -1,0 +1,105 @@
+{
+    "openapi" : "3.0.3",
+    "info":{
+        "title": "Category Restful API",
+        "description": "API Spec for  Category RESTful API",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://fawzi.linggo.id:3000/api"
+        }
+    ],
+    "paths": {
+        "/categories" :{
+            "get" :{
+                "tags": ["CATEGORY API"],
+                "description": "list all categories",
+                "summary": "list all categories",
+                "responses": {
+                    "200":{
+                        "description": "get all categories",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "code":{
+                                            "type":"number"
+                                        },
+                                        "status":{
+                                            "type":"string"
+                                        },
+                                        "data":{                                          
+                                                "$ref":"#/components/schemas/Category"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+            },
+            "post":{
+                "tags": ["CATEGORY API"],
+                "description": "Create new Category",
+                "summary": "Create new Category",
+                "requestBody":{
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "properties": {
+                                    "name":{
+                                        "type":"string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description": "Success Create Category",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                "type":"object",
+                                "properties":{
+                                    "code":{
+                                        "type":"number"
+                                    },
+                                    "status":{
+                                        "type":"string"
+                                    },
+                                    "data":{
+                                            "$ref":"#/components/schemas/Category"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+},
+"components": {
+    "schemas":{
+        "Category":{
+            "type":"object",
+            "properties": {
+                "id":{
+                    "type": "number"
+                },
+                "name":{
+                    "type":"string"
+                }
+            }
+        }
+
+    }
+}
+}
