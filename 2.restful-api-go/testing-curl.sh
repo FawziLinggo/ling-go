@@ -30,5 +30,17 @@ curl -X PUT http://fawzi.linggo.id:3000/api/categories/90 -H 'Content-Type: appl
 #############################################
 
 ############### AUTH
-# GET categories
-curl -X GET http://fawzi.linggo.id:3000/api/categories -H 'X-API-Key:  3<vnqdO+vQ5fr'  | jq 
+# GET categories AUTH
+curl -X GET http://fawzi.linggo.id:3000/api/categories -H 'X-API-Key:  3<vnqdO+vQ5fr'  | jq
+
+# Add data AUTH
+curl -X POST http://fawzi.linggo.id:3000/api/categories -H 'Content-Type: application/json' -H 'X-API-Key:  3<vnqdO+vQ5fr' -d '{"name":"computer"}' | jq
+
+# Find data By categories id AUTH
+curl -X GET http://fawzi.linggo.id:3000/api/categories/1 -H 'Content-Type: application/json' -H 'X-API-Key:  3<vnqdO+vQ5fr' | jq
+
+# Update by Categories id AUTH
+curl -X PUT http://fawzi.linggo.id:3000/api/categories/3 -H 'Content-Type: application/json' -H 'X-API-Key:  3<vnqdO+vQ5fr' -d '{"name":"Kuda"}' | jq  
+
+# Delete by Categories id AUTH
+curl -X DELETE http://fawzi.linggo.id:3000/api/categories/3 -H 'X-API-Key:  3<vnqdO+vQ5fr' | jq
