@@ -5,6 +5,7 @@ import (
 	"FawziLinggo/ling-go/2.restful-api-go/controller"
 	"FawziLinggo/ling-go/2.restful-api-go/execption"
 	"FawziLinggo/ling-go/2.restful-api-go/helper"
+	"FawziLinggo/ling-go/2.restful-api-go/middleware"
 	"FawziLinggo/ling-go/2.restful-api-go/repository"
 	"FawziLinggo/ling-go/2.restful-api-go/service"
 	"net/http"
@@ -33,8 +34,13 @@ func main() {
 	router.PanicHandler = execption.ErrorHandler
 
 	server := http.Server{
-		Addr:    "fawzi.linggo.id:3000",
-		Handler: router,
+		Addr: "fawzi.linggo.id:3000",
+
+		// NO AUTH
+		// Handler: router,
+
+		// AUTH
+		Handler: middleware.NewAuthMiddleware(router),
 	}
 	err := server.ListenAndServe()
 	helper.PanicIfError(err)
