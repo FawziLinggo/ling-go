@@ -1,6 +1,7 @@
 package service
 
 import (
+	"FawziLinggo/ling-go/2.restful-api-go/execption"
 	"FawziLinggo/ling-go/2.restful-api-go/helper"
 	"FawziLinggo/ling-go/2.restful-api-go/model/domain"
 	"FawziLinggo/ling-go/2.restful-api-go/model/web"
@@ -52,7 +53,10 @@ func (service *CategoryServiceImpl) Update(ctx context.Context, request web.Cate
 	defer helper.CommitOrRollback(tx)
 
 	category, err := service.CategoryRepository.FindById(ctx, tx, request.Id)
-	helper.PanicIfError(err)
+
+	if err != nil {
+		panic(execption.NewNotFoundError(err.Error()))
+	}
 
 	category.Name = request.Name
 	category = service.CategoryRepository.Update(ctx, tx, category)
@@ -66,8 +70,9 @@ func (service *CategoryServiceImpl) Delete(ctx context.Context, categoryId int) 
 	defer helper.CommitOrRollback(tx)
 
 	category, err := service.CategoryRepository.FindById(ctx, tx, categoryId)
-	helper.PanicIfError(err)
-
+	if err != nil {
+		panic(execption.NewNotFoundError(err.Error()))
+	}
 	service.CategoryRepository.Delete(ctx, tx, category)
 }
 
@@ -76,7 +81,11 @@ func (service *CategoryServiceImpl) FindById(ctx context.Context, categoryId int
 	helper.PanicIfError(err)
 	defer helper.CommitOrRollback(tx)
 	category, err := service.CategoryRepository.FindById(ctx, tx, categoryId)
-	helper.PanicIfError(err)
+
+	if err != nil {
+		panic(execption.NewNotFoundError(err.Error()))
+	}
+
 	return helper.ToCategoryResponse(category)
 }
 

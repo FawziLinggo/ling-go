@@ -3,6 +3,7 @@ package main
 import (
 	"FawziLinggo/ling-go/2.restful-api-go/app"
 	"FawziLinggo/ling-go/2.restful-api-go/controller"
+	"FawziLinggo/ling-go/2.restful-api-go/execption"
 	"FawziLinggo/ling-go/2.restful-api-go/helper"
 	"FawziLinggo/ling-go/2.restful-api-go/repository"
 	"FawziLinggo/ling-go/2.restful-api-go/service"
@@ -28,6 +29,8 @@ func main() {
 	router.POST("/api/categories", categoryController.Create)
 	router.PUT("/api/categories/:categoryId", categoryController.Update)
 	router.DELETE("/api/categories/:categoryId", categoryController.Delete)
+
+	router.PanicHandler = execption.ErrorHandler
 
 	server := http.Server{
 		Addr:    "fawzi.linggo.id:3000",

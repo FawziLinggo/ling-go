@@ -19,3 +19,11 @@ curl -X DELETE http://fawzi.linggo.id:3000/api/categories/3 | jq
 ############### TESTING VALIDATION
 # Add data null
 curl -X POST http://fawzi.linggo.id:3000/api/categories -H 'Content-Type: application/json' -d '{"name":""}' | jq
+
+
+############### TESTING VALIDATION
+# GET data null
+curl -X GET http://fawzi.linggo.id:3000/api/categories/100 -H 'Content-Type: application/json' | jq
+
+# Update by Categories id null
+curl -X PUT http://fawzi.linggo.id:3000/api/categories/90 -H 'Content-Type: application/json' -d '{"name":"Kuda"}' | jq  
