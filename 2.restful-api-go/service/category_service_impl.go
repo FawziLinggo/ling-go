@@ -17,6 +17,13 @@ type CategoryServiceImpl struct {
 	Validate           *validator.Validate
 }
 
+func NewCategoryService(categoryRepository repository.CategoryReposiroty, DB *sql.DB, validate *validator.Validate) CategoryService {
+	return &CategoryServiceImpl{
+		CategoryRepository: categoryRepository,
+		DB:                 DB,
+		Validate:           validate}
+}
+
 func (service *CategoryServiceImpl) Create(ctx context.Context, request web.CategoryCreateRequest) web.CategoryResponse {
 	// Validasi
 	err := service.Validate.Struct(request)
