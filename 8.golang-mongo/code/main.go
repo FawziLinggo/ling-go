@@ -25,3 +25,4 @@ func getSession() *mgo.Session {
 	}
 	return s
 }
+ 

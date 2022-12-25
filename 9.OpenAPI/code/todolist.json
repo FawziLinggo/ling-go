@@ -1,0 +1,286 @@
+{
+  "openapi": "3.0.3",
+  "info":{
+    "title": "Todolist RESTful API",
+    "version": "0.0.1",
+    "description": "OpenAPI for todoList RESTful API",
+    "termsOfService": "fawzilinggo.github.io",
+    "contact": {
+      "name":"Fawzi Linggo",
+      "email": "fawzi.linggo@alldataint.com",
+      "url": "fawzilinggo.github.io"
+    },
+    "license": {
+      "name":"APACHE 2.0",
+      "url":"https://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "servers": [
+    {
+      "description": "Todolist Server",
+      "url": "http://{env}.fawzi.linggo.id/api/v1",
+      "variables": {
+        "env":{
+          "description": "Server environtment",
+          "default" : "dev",
+          "enum":[
+            "dev",
+            "prod",
+            "staging"
+          ]
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/todolist":{
+      "get":{
+        "summary": "Get All todolist",
+        "description": "Get all todoList",
+        "parameters": [
+          {
+            "name": "include done",
+            "in": "query",
+            "required": false,
+            "description": "Is include done todolist",
+            "schema":{
+              "type": "boolean"
+            }
+        },
+        {
+          "name": "name",
+          "in": "query",
+          "required": false,
+          "description": "filter todolist by name",
+          "schema":{
+            "type": "string"
+          }
+      } 
+        ],
+        "responses": {
+          "200":{
+            "description": "Success get all todolist",
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "array",
+                  "items":{
+
+                  "type": "object",
+                  "properties": {
+                    "id":{
+                      "type": "string"
+                    },
+                    "name":{
+                      "type": "string"
+                    },
+                    "priority":{
+                      "type": "number"
+                    },
+                    "tags":{
+                      "type": "array",
+                      "items":{
+                        "type": "string"
+                      }
+                    }
+                  }
+                
+                  }
+                }
+              }
+            }
+          }
+        }
+
+      },
+      "post":{
+        "summary": "Create a new todolist",
+        "description": "Create a new todolist",
+        "requestBody":{
+          "required": true,
+          "content": {
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "name":{
+                    "type": "string",
+                    "minLength": 1,
+                    "required": ["true"]
+                  },
+                  "priority":{
+                    "type":"integer",
+                    "required": ["true"],
+                    "default":1
+                  },
+                  "tags":{
+                    "type": "array",
+                    "minItems": 1,
+                    "items":{
+                      "type": "string",
+                      "minLength": 1
+                    }
+
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200":{
+            "description": "Succes create todolist",
+            "content": {
+              "application/json":{
+                "schema":{
+                  
+                  "type": "array",
+                  "items":{
+
+                  "type": "object",
+                  "properties": {
+                    "id":{
+                      "type": "string"
+                    },
+                    "name":{
+                      "type": "string"
+                    },
+                    "priority":{
+                      "type": "number"
+                    },
+                    "tags":{
+                      "type": "array",
+                      "items":{
+                        "type": "string"
+                      }
+                    }
+                  }
+                
+                  }
+                }
+              }
+            }
+          }
+          
+        }
+      }
+    },
+    "/todolist/{todolistId}":{
+      "delete":{
+        "summary": "delete todolist",
+        "description": "delete todolist",
+        "parameters": [
+          {
+            "name":"todolistId",
+            "in" : "path",
+            "required": true,
+            "description": "Todolist id for delete",
+            "schema":{
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200":{
+            "description": "Delete",
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties": {
+                    "success":{
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put":{
+        "summary": "Update todolist",
+        "description": "Update todolist",
+        "parameters": [
+          {
+            "name":"todolistId",
+            "in" : "path",
+            "required": true,
+            "description": "Todolist id for Update",
+            "schema":{
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody":{
+          "required": true,
+          "content": {
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "name":{
+                    "type":"string",
+                    "minLength": 1,
+                    "required": ["true"]
+                  },
+                  "priority":{
+                    "type":"integer",
+                    "default": 1,
+                    "required": ["true"]
+                  },
+                  "tags":{
+                    "type": "array",
+                    "minItems": 1,
+                    "items":{
+                      "type": "string",
+                      "minLength": 1
+                    }
+
+                  }
+
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200":{
+            "description": "Succes create todolist",
+            "content": {
+              "application/json":{
+                "schema":{
+                  
+                  "type": "array",
+                  "items":{
+
+                  "type": "object",
+                  "properties": {
+                    "id":{
+                      "type": "string"
+                    },
+                    "name":{
+                      "type": "string"
+                    },
+                    "priority":{
+                      "type": "number"
+                    },
+                    "tags":{
+                      "type": "array",
+                      "items":{
+                        "type": "string"
+                      }
+                    }
+                  }
+                
+                  }
+                }
+              }
+            }
+          }
+        }
+      
+      }
+    }
+  }
+}
